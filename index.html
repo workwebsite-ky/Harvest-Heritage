@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Harvest Heritage – Premium farming, sustainable agriculture, and heritage crop cultivation. Rooted in tradition, grown for tomorrow.">
+<meta name="keywords" content="farming, sustainable agriculture, heritage crops, organic farming, crop cultivation, farm fresh produce">
+<title>Harvest Heritage | Premium Sustainable Farming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES & RESET
+============================================================ */
+:root {
+  --forest:      #1a3325;
+  --moss:        #2d5a3d;
+  --sage:        #5a8a6a;
+  --mint:        #8fbc8f;
+  --cream:       #f7f1e3;
+  --wheat:       #e8d5a3;
+  --amber:       #c8923a;
+  --harvest:     #a0522d;
+  --earth:       #6b4226;
+  --bark:        #3d2314;
+  --gold:        #d4a843;
+  --sky:         #e8f0e8;
+  --white:       #ffffff;
+  --text-dark:   #1a1a1a;
+  --text-mid:    #4a4a4a;
+  --shadow:      rgba(26,51,37,0.18);
+  --shadow-heavy:rgba(26,51,37,0.35);
+  --transition:  0.38s cubic-bezier(0.25,0.8,0.25,1);
+  --radius:      16px;
+  --radius-lg:   28px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ============================================================
+   LOADER
+============================================================ */
+#loader {
+  position: fixed; inset: 0; background: var(--forest);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-inner { text-align: center; }
+.loader-leaf {
+  width: 60px; height: 60px; margin: 0 auto 20px;
+  animation: leafSpin 1.2s ease-in-out infinite alternate;
+}
+.loader-leaf svg { width: 100%; height: 100%; }
+.loader-text {
+  font-family: 'Playfair Display', serif;
+  color: var(--wheat); font-size: 1.4rem; letter-spacing: 0.15em;
+  animation: pulse 1.2s ease-in-out infinite alternate;
+}
+@keyframes leafSpin {
+  0%   { transform: rotate(-18deg) scale(0.9); }
+  100% { transform: rotate(18deg) scale(1.1); }
+}
+@keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 76px;
+  transition: background var(--transition), box-shadow var(--transition), height var(--transition);
+}
+nav.scrolled {
+  background: rgba(26,51,37,0.97);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 32px var(--shadow-heavy);
+  height: 64px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 700; color: var(--cream);
+  letter-spacing: 0.04em;
+}
+.nav-logo-icon { width: 38px; height: 38px; flex-shrink: 0; }
+.nav-links {
+  display: flex; align-items: center; gap: 36px;
+}
+.nav-links a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(247,241,227,0.85);
+  position: relative; padding-bottom: 4px;
+  transition: color var(--transition);
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1.5px; background: var(--gold);
+  transition: width var(--transition);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-cta {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+  background: var(--amber); color: var(--bark);
+  padding: 10px 24px; border-radius: 50px;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 16px rgba(200,146,58,0.35);
+}
+.nav-cta:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,146,58,0.45); }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  width: 28px; cursor: pointer;
+}
+.hamburger span {
+  display: block; height: 2px; background: var(--cream);
+  transition: all var(--transition);
+}
+.mobile-nav {
+  display: none; position: fixed; inset: 0; background: var(--forest);
+  z-index: 999; flex-direction: column; align-items: center; justify-content: center;
+  gap: 32px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; color: var(--cream);
+  transition: color var(--transition);
+}
+.mobile-nav a:hover { color: var(--gold); }
+.mobile-close {
+  position: absolute; top: 28px; right: 5%;
+  font-size: 2rem; color: var(--cream); cursor: pointer;
+}
+
+/* ============================================================
+   PAGES SYSTEM
+============================================================ */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(160deg, rgba(26,51,37,0.85) 0%, rgba(45,90,61,0.65) 50%, rgba(26,51,37,0.78) 100%),
+    url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1800&q=80') center/cover no-repeat;
+  transform-origin: center;
+  animation: heroZoom 18s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 120px 8% 80px;
+  max-width: 820px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(212,168,67,0.18); border: 1px solid rgba(212,168,67,0.4);
+  color: var(--gold); padding: 8px 20px; border-radius: 50px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 28px;
+  backdrop-filter: blur(8px);
+  animation: fadeUp 0.8s ease both;
+}
+.hero-badge span { display: inline-block; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 1.1; color: var(--cream);
+  margin-bottom: 28px;
+  animation: fadeUp 0.9s 0.1s ease both;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: rgba(247,241,227,0.82);
+  max-width: 540px; margin-bottom: 44px;
+  line-height: 1.8;
+  animation: fadeUp 1s 0.2s ease both;
+  font-weight: 300;
+}
+.hero-btns {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  animation: fadeUp 1s 0.3s ease both;
+}
+.btn-primary {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+  background: var(--amber); color: var(--bark);
+  padding: 16px 38px; border-radius: 50px;
+  transition: all var(--transition);
+  box-shadow: 0 6px 28px rgba(200,146,58,0.4);
+}
+.btn-primary:hover { background: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(200,146,58,0.5); }
+.btn-outline {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+  border: 1.5px solid rgba(247,241,227,0.6); color: var(--cream);
+  padding: 16px 38px; border-radius: 50px;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+.btn-outline:hover { background: rgba(247,241,227,0.12); border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(247,241,227,0.6);
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  animation: fadeIn 1.2s 0.5s both;
+}
+.hero-scroll-line {
+  width: 1.5px; height: 48px; background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%,100% { transform: scaleY(1); opacity: 1; } 50% { transform: scaleY(0.4); opacity: 0.4; } }
+
+/* ============================================================
+   STATS BAR
+============================================================ */
+.stats-bar {
+  background: var(--forest);
+  padding: 28px 8%;
+  display: flex; flex-wrap: wrap; justify-content: space-around; gap: 24px;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 700; color: var(--gold);
+  display: block;
+}
+.stat-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(247,241,227,0.6);
+}
+
+/* ============================================================
+   SECTION STYLES
+============================================================ */
+section { padding: 100px 8%; }
+.section-tag {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-tag::before, .section-tag::after {
+  content: ''; display: inline-block;
+  width: 28px; height: 1px; background: var(--amber);
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.15; color: var(--forest);
+  margin-bottom: 20px;
+}
+.section-title em { font-style: italic; color: var(--moss); }
+.section-sub {
+  font-size: 1.12rem; color: var(--text-mid); max-width: 560px;
+  line-height: 1.85; font-weight: 300;
+  margin-bottom: 56px;
+}
+
+/* ============================================================
+   ABOUT INTRO (HOME)
+============================================================ */
+.about-intro {
+  background: var(--cream);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.about-img-wrap {
+  position: relative;
+}
+.about-img {
+  width: 100%; height: 500px; object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: 24px 24px 0 var(--wheat);
+}
+.about-badge {
+  position: absolute; bottom: -24px; right: -24px;
+  background: var(--amber); color: var(--bark);
+  padding: 22px 28px; border-radius: var(--radius);
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(200,146,58,0.35);
+}
+.about-badge strong {
+  display: block; font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; line-height: 1;
+}
+.about-badge span {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.about-text .section-sub { margin-bottom: 36px; }
+.feature-list { display: flex; flex-direction: column; gap: 16px; }
+.feature-item {
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.feature-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: var(--sky); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+.feature-item h4 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--forest); margin-bottom: 4px;
+}
+.feature-item p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.65; font-weight: 300; }
+
+/* ============================================================
+   SERVICES CARDS
+============================================================ */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+.service-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 24px var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 48px var(--shadow-heavy); }
+.service-card-img { width: 100%; height: 220px; object-fit: cover; transition: transform 0.6s ease; }
+.service-card:hover .service-card-img { transform: scale(1.06); }
+.service-card-body { padding: 28px; }
+.service-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.service-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; color: var(--forest); margin-bottom: 10px;
+}
+.service-card p { font-size: 0.97rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+.service-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber); margin-top: 16px;
+  transition: gap var(--transition);
+}
+.service-card:hover .service-link { gap: 12px; }
+
+/* ============================================================
+   WHY CHOOSE US
+============================================================ */
+.why-us { background: var(--forest); color: var(--cream); }
+.why-us .section-title { color: var(--cream); }
+.why-us .section-title em { color: var(--gold); }
+.why-us .section-sub { color: rgba(247,241,227,0.72); }
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+.why-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  backdrop-filter: blur(8px);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+.why-card:hover { background: rgba(212,168,67,0.12); border-color: var(--gold); transform: translateY(-6px); }
+.why-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; color: rgba(212,168,67,0.25); line-height: 1;
+  margin-bottom: 16px;
+}
+.why-card h3 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.88rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.why-card p { font-size: 0.97rem; color: rgba(247,241,227,0.7); line-height: 1.75; font-weight: 300; }
+
+/* ============================================================
+   TESTIMONIALS
+============================================================ */
+.testimonials { background: var(--sky); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+.testi-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+.testi-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow-heavy); }
+.testi-quote {
+  font-size: 3rem; color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  line-height: 0.5; margin-bottom: 18px;
+}
+.testi-card p { font-size: 1.05rem; color: var(--text-mid); line-height: 1.8; font-style: italic; font-weight: 300; }
+.testi-author { display: flex; align-items: center; gap: 14px; margin-top: 24px; }
+.testi-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  object-fit: cover; border: 2px solid var(--wheat);
+}
+.testi-name { font-family: 'Josefin Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--forest); }
+.testi-role { font-size: 0.82rem; color: var(--text-mid); }
+.testi-stars { color: var(--gold); font-size: 0.85rem; margin-top: 2px; }
+
+/* ============================================================
+   CTA BANNER
+============================================================ */
+.cta-banner {
+  background:
+    linear-gradient(135deg, rgba(26,51,37,0.92) 0%, rgba(45,90,61,0.88) 100%),
+    url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1400&q=80') center/cover;
+  color: var(--cream); text-align: center; padding: 100px 8%;
+}
+.cta-banner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem); margin-bottom: 20px;
+}
+.cta-banner h2 em { font-style: italic; color: var(--gold); }
+.cta-banner p { font-size: 1.15rem; color: rgba(247,241,227,0.78); max-width: 520px; margin: 0 auto 40px; font-weight: 300; }
+.cta-banner .btn-primary { font-size: 0.9rem; }
+
+/* ============================================================
+   SERVICES PAGE
+============================================================ */
+.page-hero {
+  min-height: 52vh;
+  background: linear-gradient(160deg, rgba(26,51,37,0.9) 0%, rgba(45,90,61,0.8) 100%),
+    url('https://images.unsplash.com/photo-1560493676-04071c5f467b?w=1600&q=80') center/cover;
+  display: flex; align-items: flex-end;
+  padding: 140px 8% 64px;
+}
+.page-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--cream);
+}
+.page-hero-title em { color: var(--gold); font-style: italic; }
+.page-hero-sub {
+  font-size: 1.1rem; color: rgba(247,241,227,0.75);
+  max-width: 520px; margin-top: 14px; font-weight: 300;
+}
+
+.services-full { background: var(--cream); }
+.service-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+  margin-bottom: 80px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid rgba(26,51,37,0.1);
+}
+.service-row:last-child { border-bottom: none; margin-bottom: 0; }
+.service-row.reverse { direction: rtl; }
+.service-row.reverse > * { direction: ltr; }
+.service-full-img {
+  width: 100%; height: 380px; object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 48px var(--shadow);
+  transition: transform 0.6s ease;
+}
+.service-row:hover .service-full-img { transform: scale(1.02); }
+.service-full-content { }
+.service-full-content .section-tag { margin-bottom: 12px; }
+.service-full-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; color: var(--forest); margin-bottom: 16px;
+}
+.service-full-content p { font-size: 1.05rem; color: var(--text-mid); line-height: 1.85; font-weight: 300; margin-bottom: 14px; }
+.service-bullets { margin: 20px 0; }
+.service-bullets li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.97rem; color: var(--text-mid); margin-bottom: 10px;
+}
+.service-bullets li::before {
+  content: '✦'; color: var(--amber); font-size: 0.7rem; flex-shrink: 0;
+}
+
+/* ============================================================
+   PRICING PAGE
+============================================================ */
+.pricing-section { background: var(--cream); }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; align-items: start; }
+.pricing-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 44px 36px;
+  box-shadow: 0 4px 24px var(--shadow);
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+  border: 2px solid transparent;
+}
+.pricing-card:hover { transform: translateY(-10px); box-shadow: 0 24px 56px var(--shadow-heavy); }
+.pricing-card.featured {
+  background: var(--forest); color: var(--cream);
+  border-color: var(--gold);
+  transform: scale(1.04);
+}
+.pricing-card.featured:hover { transform: scale(1.04) translateY(-10px); }
+.popular-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--bark);
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 50px; font-weight: 700;
+  white-space: nowrap;
+}
+.pricing-tier {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 8px;
+}
+.pricing-card.featured .pricing-tier { color: var(--gold); }
+.pricing-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; color: var(--forest); margin-bottom: 20px;
+}
+.pricing-card.featured .pricing-name { color: var(--cream); }
+.pricing-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem; font-weight: 900; color: var(--forest); line-height: 1;
+}
+.pricing-card.featured .pricing-price { color: var(--gold); }
+.pricing-price sup { font-size: 1.5rem; font-weight: 400; }
+.pricing-price sub { font-size: 1rem; color: var(--text-mid); font-weight: 300; }
+.pricing-card.featured .pricing-price sub { color: rgba(247,241,227,0.6); }
+.pricing-desc {
+  font-size: 0.95rem; color: var(--text-mid); margin: 16px 0 28px;
+  line-height: 1.7; font-weight: 300;
+}
+.pricing-card.featured .pricing-desc { color: rgba(247,241,227,0.72); }
+.pricing-divider { height: 1px; background: var(--wheat); margin: 28px 0; }
+.pricing-card.featured .pricing-divider { background: rgba(255,255,255,0.15); }
+.pricing-features li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.97rem; color: var(--text-mid);
+  margin-bottom: 12px; font-weight: 300;
+}
+.pricing-card.featured .pricing-features li { color: rgba(247,241,227,0.85); }
+.pricing-features li .check { color: var(--moss); font-weight: 700; flex-shrink: 0; }
+.pricing-card.featured .pricing-features li .check { color: var(--gold); }
+.pricing-features li .cross { color: #ccc; flex-shrink: 0; }
+.pricing-card.featured .pricing-features li .cross { color: rgba(255,255,255,0.3); }
+.pricing-btn {
+  display: block; width: 100%; margin-top: 32px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+  padding: 15px 0; border-radius: 50px; text-align: center;
+  background: var(--sky); color: var(--forest);
+  transition: all var(--transition);
+  border: 1.5px solid var(--forest);
+}
+.pricing-btn:hover { background: var(--forest); color: var(--cream); }
+.pricing-card.featured .pricing-btn { background: var(--gold); color: var(--bark); border-color: var(--gold); }
+.pricing-card.featured .pricing-btn:hover { background: var(--amber); }
+
+/* ============================================================
+   FAQ
+============================================================ */
+.faq-section { background: var(--sky); }
+.faq-list { max-width: 780px; margin: 0 auto; }
+.faq-item {
+  background: var(--white);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  box-shadow: 0 2px 12px var(--shadow);
+  overflow: hidden;
+}
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 28px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.faq-q:hover { background: var(--sky); }
+.faq-q-text {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.9rem; letter-spacing: 0.06em;
+  color: var(--forest); font-weight: 600;
+}
+.faq-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--wheat); color: var(--forest);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700; flex-shrink: 0;
+  transition: transform var(--transition), background var(--transition);
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--amber); color: var(--white); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a p { padding: 0 28px 22px; font-size: 0.97rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+
+/* ============================================================
+   ABOUT PAGE
+============================================================ */
+.about-story { background: var(--cream); }
+.about-story-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; }
+.about-story-img {
+  width: 100%; height: 560px; object-fit: cover;
+  border-radius: var(--radius-lg); box-shadow: 0 20px 56px var(--shadow-heavy);
+}
+.about-story-text p {
+  font-size: 1.05rem; color: var(--text-mid); line-height: 1.9; font-weight: 300;
+  margin-bottom: 18px;
+}
+.about-values { background: var(--forest); color: var(--cream); }
+.about-values .section-title { color: var(--cream); }
+.about-values .section-title em { color: var(--gold); }
+.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.value-card {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius); padding: 36px;
+  transition: all var(--transition);
+}
+.value-card:hover { border-color: var(--gold); background: rgba(212,168,67,0.07); transform: translateY(-6px); }
+.value-icon { font-size: 2.2rem; margin-bottom: 18px; }
+.value-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; color: var(--gold); margin-bottom: 10px;
+}
+.value-card p { font-size: 0.97rem; color: rgba(247,241,227,0.7); line-height: 1.8; font-weight: 300; }
+.team-section { background: var(--cream); }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+.team-card { text-align: center; }
+.team-img-wrap { position: relative; display: inline-block; margin-bottom: 20px; }
+.team-img {
+  width: 180px; height: 220px; object-fit: cover;
+  border-radius: var(--radius); box-shadow: 0 8px 28px var(--shadow);
+  transition: transform var(--transition);
+}
+.team-card:hover .team-img { transform: translateY(-6px); }
+.team-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--forest); }
+.team-card span {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber);
+}
+
+/* ============================================================
+   CONTACT PAGE
+============================================================ */
+.contact-section { background: var(--cream); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+.contact-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; color: var(--forest); margin-bottom: 20px;
+}
+.contact-info p { font-size: 1.05rem; color: var(--text-mid); line-height: 1.85; font-weight: 300; margin-bottom: 36px; }
+.contact-detail {
+  display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px;
+}
+.contact-detail-icon {
+  width: 48px; height: 48px; background: var(--wheat);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.contact-detail h4 {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 4px;
+}
+.contact-detail p { font-size: 0.97rem; color: var(--text-mid); margin: 0; font-weight: 300; }
+.contact-form {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 48px; box-shadow: 0 8px 36px var(--shadow);
+}
+.contact-form h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; color: var(--forest); margin-bottom: 30px;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 22px; }
+.form-group label {
+  display: block; font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--moss); margin-bottom: 8px;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 14px 18px;
+  border: 1.5px solid var(--wheat);
+  border-radius: 10px; font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; color: var(--text-dark);
+  background: var(--cream); transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--moss); box-shadow: 0 0 0 3px rgba(45,90,61,0.1);
+}
+.form-group textarea { resize: vertical; min-height: 130px; }
+.form-submit {
+  width: 100%; padding: 16px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+  background: var(--forest); color: var(--cream);
+  border-radius: 50px;
+  transition: all var(--transition);
+  box-shadow: 0 6px 24px var(--shadow);
+}
+.form-submit:hover { background: var(--moss); transform: translateY(-3px); box-shadow: 0 12px 36px var(--shadow-heavy); }
+.map-embed {
+  margin-top: 48px; border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+.map-embed iframe { display: block; width: 100%; height: 340px; border: 0; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer { background: var(--bark); color: rgba(247,241,227,0.8); }
+.footer-top {
+  padding: 72px 8% 48px;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px;
+}
+.footer-brand .nav-logo { margin-bottom: 18px; }
+.footer-brand p { font-size: 0.97rem; line-height: 1.8; color: rgba(247,241,227,0.6); font-weight: 300; max-width: 280px; }
+.footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+.social-btn {
+  width: 40px; height: 40px; background: rgba(255,255,255,0.08);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; transition: background var(--transition), transform var(--transition);
+}
+.social-btn:hover { background: var(--amber); transform: translateY(-3px); }
+.footer-col h4 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 18px;
+}
+.footer-col li { margin-bottom: 10px; }
+.footer-col a {
+  font-size: 0.95rem; color: rgba(247,241,227,0.6);
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 22px 8%;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; color: rgba(247,241,227,0.4); text-transform: uppercase;
+}
+
+/* ============================================================
+   BACK TO TOP + WHATSAPP
+============================================================ */
+.back-top {
+  position: fixed; bottom: 100px; right: 28px; z-index: 900;
+  width: 48px; height: 48px; background: var(--forest); color: var(--cream);
+  border-radius: 12px; box-shadow: 0 4px 20px var(--shadow-heavy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; cursor: pointer;
+  opacity: 0; transform: translateY(16px);
+  transition: all var(--transition);
+}
+.back-top.visible { opacity: 1; transform: translateY(0); }
+.back-top:hover { background: var(--moss); }
+.whatsapp-btn {
+  position: fixed; bottom: 32px; right: 28px; z-index: 900;
+  width: 52px; height: 52px; background: #25d366;
+  border-radius: 50%; box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; color: white;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(37,211,102,0.6); }
+
+/* ============================================================
+   ANIMATIONS
+============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  opacity: 0; transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0; transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1024px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .about-story-grid { grid-template-columns: 1fr; }
+  .about-story-img { height: 380px; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  section { padding: 72px 5%; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .about-intro { grid-template-columns: 1fr; gap: 48px; }
+  .about-badge { right: 16px; bottom: -16px; }
+  .service-row { grid-template-columns: 1fr; gap: 32px; }
+  .service-row.reverse { direction: ltr; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form { padding: 32px 22px; }
+  .stats-bar { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-leaf">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 5C30 5 8 18 8 36C8 48 18 55 30 55C42 55 52 48 52 36C52 18 30 5 30 5Z" fill="#5a8a6a" opacity="0.5"/>
+        <path d="M30 12C30 12 12 22 12 37C12 47 20 52 30 52C40 52 48 47 48 37C48 22 30 12 30 12Z" fill="#2d5a3d"/>
+        <path d="M30 12L30 52" stroke="#d4a843" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <path d="M30 30C22 26 16 22 14 18" stroke="#8fbc8f" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M30 38C38 34 44 28 46 22" stroke="#8fbc8f" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="loader-text">Harvest Heritage</div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 38 38" fill="none">
+      <circle cx="19" cy="19" r="19" fill="#2d5a3d"/>
+      <path d="M19 6C19 6 8 13 8 22C8 28 13 32 19 32C25 32 30 28 30 22C30 13 19 6 19 6Z" fill="#5a8a6a"/>
+      <path d="M19 10C19 10 11 16 11 23C11 27 14.5 30 19 30C23.5 30 27 27 27 23C27 16 19 10 19 10Z" fill="#8fbc8f"/>
+      <line x1="19" y1="10" x2="19" y2="31" stroke="#d4a843" stroke-width="1.2"/>
+    </svg>
+    Harvest Heritage
+  </div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a>
+    <a href="#" onclick="showPage('services')" id="nav-services">Services</a>
+    <a href="#" onclick="showPage('pricing')" id="nav-pricing">Pricing</a>
+    <a href="#" onclick="showPage('about')" id="nav-about">About</a>
+    <a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a>
+  </div>
+  <a href="#" onclick="showPage('contact')" class="nav-cta">Get In Touch</a>
+  <div class="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="mobile-close" onclick="toggleMobileNav()">✕</span>
+  <a href="#" onclick="showPage('home');toggleMobileNav()">Home</a>
+  <a href="#" onclick="showPage('services');toggleMobileNav()">Services</a>
+  <a href="#" onclick="showPage('pricing');toggleMobileNav()">Pricing</a>
+  <a href="#" onclick="showPage('about');toggleMobileNav()">About</a>
+  <a href="#" onclick="showPage('contact');toggleMobileNav()">Contact</a>
+</div>
+
+<!-- ============================================================
+     HOME PAGE
+============================================================ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span></span>Premium Sustainable Farming<span></span></div>
+      <h1>Rooted in Tradition,<br><em>Grown for Tomorrow</em></h1>
+      <p class="hero-sub">Harvest Heritage brings generations of farming wisdom to modern, sustainable agriculture — cultivating premium crops with integrity, passion, and respect for the land.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary" onclick="showPage('services')">Explore Our Farm</a>
+        <a href="#" class="btn-outline" onclick="showPage('contact')">Get a Free Consultation</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num" data-target="25">0</span>
+      <span class="stat-label">Years of Heritage</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="500">0</span>
+      <span class="stat-label">Acres Cultivated</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="120">0</span>
+      <span class="stat-label">Partner Farms</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="40">0</span>
+      <span class="stat-label">Heritage Crop Varieties</span>
+    </div>
+  </div>
+
+  <!-- ABOUT INTRO -->
+  <section class="about-intro">
+    <div class="about-img-wrap reveal-left">
+      <img class="about-img" src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=900&q=80" alt="Harvest Heritage farm fields" loading="lazy">
+      <div class="about-badge">
+        <strong>25+</strong>
+        <span>Years of Farming Excellence</span>
+      </div>
+    </div>
+    <div class="about-text reveal-right">
+      <div class="section-tag">Our Story</div>
+      <h2 class="section-title">A Legacy Built <em>Row by Row</em></h2>
+      <p class="section-sub">We believe the best food starts with the best land practices. Harvest Heritage is a family-rooted farm dedicated to organic cultivation, heirloom seed preservation, and building a more sustainable food future.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">🌱</div>
+          <div>
+            <h4>100% Organic Practices</h4>
+            <p>Zero synthetic pesticides or fertilizers — we let nature guide every harvest.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌾</div>
+          <div>
+            <h4>Heritage Seed Preservation</h4>
+            <p>Protecting over 40 rare varieties of heirloom crops for future generations.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💧</div>
+          <div>
+            <h4>Water-Smart Irrigation</h4>
+            <p>Advanced drip systems that reduce water usage by up to 60% vs traditional methods.</p>
+          </div>
+        </div>
+      </div>
+      <a href="#" onclick="showPage('about')" class="btn-primary" style="display:inline-block;margin-top:32px;">Learn Our Story</a>
+    </div>
+  </section>
+
+  <!-- FEATURED SERVICES -->
+  <section style="background:var(--sky)">
+    <div class="section-tag" style="justify-content:center">What We Do</div>
+    <h2 class="section-title" style="text-align:center">Farm <em>Services</em> & Expertise</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 56px">From field to table, we offer a full spectrum of farming, consultancy, and supply services to partners and communities.</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <img class="service-card-img" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=80" alt="Crop Cultivation" loading="lazy">
+        <div class="service-card-body">
+          <div class="service-icon">🌾</div>
+          <h3>Crop Cultivation</h3>
+          <p>Heritage and modern crop cultivation using rotational methods that enrich soil and maximise yield quality.</p>
+          <div class="service-link" onclick="showPage('services')">Learn More →</div>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <img class="service-card-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Organic Produce Supply" loading="lazy">
+        <div class="service-card-body">
+          <div class="service-icon">🧺</div>
+          <h3>Organic Produce Supply</h3>
+          <p>Direct farm-to-table organic produce supply for restaurants, retailers, and community food programs.</p>
+          <div class="service-link" onclick="showPage('services')">Learn More →</div>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <img class="service-card-img" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80" alt="Farm Consultancy" loading="lazy">
+        <div class="service-card-body">
+          <div class="service-icon">📋</div>
+          <h3>Farm Consultancy</h3>
+          <p>Expert advice on sustainable farming transitions, soil health, crop planning, and regenerative practices.</p>
+          <div class="service-link" onclick="showPage('services')">Learn More →</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px">
+      <a href="#" onclick="showPage('services')" class="btn-primary">View All Services</a>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-us">
+    <div style="text-align:center">
+      <div class="section-tag" style="justify-content:center;color:var(--gold)">
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+        Why Choose Us
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+      </div>
+      <h2 class="section-title" style="color:var(--cream);text-align:center">The Harvest Heritage <em>Difference</em></h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto 56px;color:rgba(247,241,227,0.72)">We combine ancestral knowledge with cutting-edge sustainable science to deliver results you can taste.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-num">01</div>
+        <h3>Chemical-Free Pledge</h3>
+        <p>Every crop we grow is 100% free from synthetic chemicals, hormones, and GMO inputs — certified and verified.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-num">02</div>
+        <h3>Soil-First Philosophy</h3>
+        <p>We treat soil as a living ecosystem. Our regenerative practices improve biodiversity year over year.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-num">03</div>
+        <h3>Transparent Traceability</h3>
+        <p>Every product is fully traceable from seed to shelf. Our QR traceability system lets you follow your food's journey.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-num">04</div>
+        <h3>Community Rooted</h3>
+        <p>We employ local farming families, support rural education programs, and invest in the communities we grow in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-tag" style="justify-content:center">What People Say</div>
+    <h2 class="section-title" style="text-align:center">Voices from Our <em>Community</em></h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 56px">Real words from the farmers, chefs, and families we serve.</p>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p>Harvest Heritage transformed how our restaurant thinks about ingredients. The flavour of their heritage tomatoes is extraordinary — there's simply no comparison to conventional produce.</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=100&q=80" alt="Chef Marco" loading="lazy">
+          <div>
+            <div class="testi-name">Chef Marco Lienard</div>
+            <div class="testi-role">Executive Chef, The Oak Table</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p>Their farm consultancy service helped us transition our 80-acre property to fully regenerative practices in under two seasons. The soil health improvements have been remarkable.</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&q=80" alt="James" loading="lazy">
+          <div>
+            <div class="testi-name">James Whitmore</div>
+            <div class="testi-role">Landowner & Partner Farmer</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p>Our school's weekly CSA box from Harvest Heritage has completely changed what our students know about fresh food. The educational workshops they offer are priceless.</p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="Sarah" loading="lazy">
+          <div>
+            <div class="testi-name">Sarah Chen</div>
+            <div class="testi-role">Principal, Greenfield Academy</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="reveal">
+      <div class="section-tag" style="justify-content:center;color:var(--gold)">
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+        Ready to Begin?
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+      </div>
+      <h2>Let's Grow <em>Something</em><br>Beautiful Together</h2>
+      <p>Whether you're a chef, retailer, farmer, or food lover — we'd love to connect and explore how Harvest Heritage can serve you.</p>
+      <a href="#" onclick="showPage('contact')" class="btn-primary">Schedule a Free Consultation</a>
+    </div>
+  </section>
+
+</div><!-- end home page -->
+
+
+<!-- ============================================================
+     SERVICES PAGE
+============================================================ -->
+<div id="page-services" class="page">
+
+  <div class="page-hero" style="background-image:linear-gradient(160deg,rgba(26,51,37,0.9) 0%,rgba(45,90,61,0.8) 100%),url('https://images.unsplash.com/photo-1560493676-04071c5f467b?w=1600&q=80')">
+    <div>
+      <div class="section-tag" style="color:var(--gold)">
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+        What We Offer
+      </div>
+      <h1 class="page-hero-title">Our Farm <em>Services</em></h1>
+      <p class="page-hero-sub">From soil preparation to harvest logistics — every stage handled with expert care.</p>
+    </div>
+  </div>
+
+  <section class="services-full">
+    <div class="service-row">
+      <img class="service-full-img reveal-left" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&q=80" alt="Crop Cultivation" loading="lazy">
+      <div class="service-full-content reveal-right">
+        <div class="section-tag">Core Service</div>
+        <h2>Crop Cultivation & Harvest</h2>
+        <p>Our flagship service — growing premium heritage and modern crop varieties using traditional crop-rotation, cover cropping, and precision composting. We manage everything from seed selection to post-harvest handling.</p>
+        <p>Each field is treated as its own ecosystem, with bespoke soil management plans developed by our in-house agronomists.</p>
+        <ul class="service-bullets">
+          <li>Heirloom and F1 hybrid varieties available</li>
+          <li>Seasonal crop calendars for year-round supply</li>
+          <li>Full post-harvest grading and packing</li>
+          <li>Certified organic and conventional options</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="btn-primary" style="display:inline-block;margin-top:20px">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="service-row reverse">
+      <img class="service-full-img reveal-right" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80" alt="Organic Produce Supply" loading="lazy">
+      <div class="service-full-content reveal-left">
+        <div class="section-tag">Direct Supply</div>
+        <h2>Organic Produce Supply</h2>
+        <p>We supply fresh, seasonal, certified-organic produce directly to restaurants, hotels, grocers, and community food programs. Our cold-chain logistics ensure freshness from field to door within 24 hours of harvest.</p>
+        <p>Custom box schemes, standing orders, and flexible volume arrangements available to suit operations of any size.</p>
+        <ul class="service-bullets">
+          <li>Weekly & bi-weekly delivery schedules</li>
+          <li>Custom CSA (Community Supported Agriculture) boxes</li>
+          <li>Wholesale supply for restaurants & retailers</li>
+          <li>Zero-waste packaging options</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="btn-primary" style="display:inline-block;margin-top:20px">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <img class="service-full-img reveal-left" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=900&q=80" alt="Farm Consultancy" loading="lazy">
+      <div class="service-full-content reveal-right">
+        <div class="section-tag">Expert Guidance</div>
+        <h2>Farm Consultancy</h2>
+        <p>Our experienced agronomists and regenerative farming specialists work alongside you to develop practical, profitable, and planet-friendly farming strategies tailored to your land and goals.</p>
+        <p>Whether you're transitioning from conventional to organic, improving yields, or starting fresh — we're with you at every step.</p>
+        <ul class="service-bullets">
+          <li>Soil health assessment & improvement plans</li>
+          <li>Organic certification support</li>
+          <li>Irrigation system design and installation</li>
+          <li>Crop planning and market access guidance</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="btn-primary" style="display:inline-block;margin-top:20px">Book a Consultation</a>
+      </div>
+    </div>
+
+    <div class="service-row reverse">
+      <img class="service-full-img reveal-right" src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=900&q=80" alt="Agri-Tourism" loading="lazy">
+      <div class="service-full-content reveal-left">
+        <div class="section-tag">Farm Experience</div>
+        <h2>Agri-Tourism & Farm Workshops</h2>
+        <p>Experience authentic farm life through our guided tours, seasonal harvest experiences, and hands-on educational workshops. Perfect for schools, corporate team-building, and families seeking a deeper connection with food.</p>
+        <ul class="service-bullets">
+          <li>Guided seasonal farm tours</li>
+          <li>Hands-on harvesting experiences</li>
+          <li>Farm-to-table dinners under the stars</li>
+          <li>School and community education programs</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="btn-primary" style="display:inline-block;margin-top:20px">Book a Farm Visit</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div style="text-align:center">
+      <div class="section-tag" style="justify-content:center">Common Questions</div>
+      <h2 class="section-title" style="text-align:center">Frequently <em>Asked</em> Questions</h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto 48px">Everything you need to know about farming with Harvest Heritage.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Are your farms certified organic?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><p>Yes. Our primary cultivation land holds full organic certification. We also work with partner farms at various stages of their organic transition, and clearly label produce accordingly.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What areas do you deliver produce to?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><p>We currently deliver within a 200km radius of our main farm site, with cold-chain refrigerated vehicles. We are expanding and welcome enquiries from further afield for larger wholesale orders.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How does the farm consultancy process work?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><p>We begin with a free initial consultation call or farm visit to assess your land, goals, and current practices. From there, we develop a tailored proposal outlining our recommended approach, timelines, and investment required.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Can I visit the farm?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><p>Absolutely! We run scheduled farm tours year-round, and bespoke visits for schools, corporate groups, and prospective partners can be arranged on request. Contact us to book your visit.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Do you supply to individual households?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a"><p>Yes, through our Community Supported Agriculture (CSA) box scheme. Seasonal vegetable, fruit, and herb boxes are available on weekly subscriptions for households, with collection or home delivery options.</p></div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end services page -->
+
+
+<!-- ============================================================
+     PRICING PAGE
+============================================================ -->
+<div id="page-pricing" class="page">
+
+  <div class="page-hero" style="background-image:linear-gradient(160deg,rgba(26,51,37,0.9) 0%,rgba(45,90,61,0.8) 100%),url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1600&q=80')">
+    <div>
+      <div class="section-tag" style="color:var(--gold)">
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+        Investment
+      </div>
+      <h1 class="page-hero-title">Transparent <em>Pricing</em></h1>
+      <p class="page-hero-sub">Simple, honest packages designed for farms and food businesses of every scale.</p>
+    </div>
+  </div>
+
+  <section class="pricing-section">
+    <div style="text-align:center">
+      <div class="section-tag" style="justify-content:center">Consultancy Packages</div>
+      <h2 class="section-title" style="text-align:center">Choose Your <em>Partnership</em></h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto 56px">All packages include an initial farm assessment and custom soil report at no extra charge.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Seedling Plan</div>
+        <div class="pricing-price"><sup>$</sup>299<sub>/month</sub></div>
+        <div class="pricing-desc">Ideal for smallholders and hobby farms getting started on their organic journey.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Monthly advisory call (1hr)</li>
+          <li><span class="check">✓</span> Soil test & basic report</li>
+          <li><span class="check">✓</span> Seasonal crop calendar</li>
+          <li><span class="check">✓</span> Email support</li>
+          <li><span class="cross">✗</span> On-site farm visits</li>
+          <li><span class="cross">✗</span> Certification support</li>
+          <li><span class="cross">✗</span> Market access guidance</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="pricing-btn">Get Started</a>
+      </div>
+
+      <div class="pricing-card featured reveal">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-tier">Growth</div>
+        <div class="pricing-name">Heritage Plan</div>
+        <div class="pricing-price"><sup>$</sup>699<sub>/month</sub></div>
+        <div class="pricing-desc">Our most popular plan for serious farmers ready to scale sustainably and profitably.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Bi-weekly advisory calls</li>
+          <li><span class="check">✓</span> Full soil analysis & action plan</li>
+          <li><span class="check">✓</span> Bespoke crop planning</li>
+          <li><span class="check">✓</span> 2 on-site farm visits/year</li>
+          <li><span class="check">✓</span> Organic certification support</li>
+          <li><span class="check">✓</span> Priority email & WhatsApp</li>
+          <li><span class="cross">✗</span> Market placement support</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="pricing-btn">Get Started</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Premium</div>
+        <div class="pricing-name">Harvest Plan</div>
+        <div class="pricing-price"><sup>$</sup>1,499<sub>/month</sub></div>
+        <div class="pricing-desc">The complete farm partnership for commercial operations seeking full transformation and market growth.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Weekly advisory & check-ins</li>
+          <li><span class="check">✓</span> Advanced soil & water testing</li>
+          <li><span class="check">✓</span> Full regenerative transition plan</li>
+          <li><span class="check">✓</span> Unlimited on-site visits</li>
+          <li><span class="check">✓</span> Certification support (all types)</li>
+          <li><span class="check">✓</span> Market access & buyer introductions</li>
+          <li><span class="check">✓</span> Dedicated account manager</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+
+    <!-- CSA BOX PRICING -->
+    <div style="margin-top:100px;text-align:center">
+      <div class="section-tag" style="justify-content:center">Produce Boxes</div>
+      <h2 class="section-title" style="text-align:center">CSA Subscription <em>Boxes</em></h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto 48px">Fresh, seasonal, farm-direct produce delivered weekly to your door or collection point.</p>
+    </div>
+    <div class="pricing-grid" style="max-width:900px;margin:0 auto">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Household</div>
+        <div class="pricing-name">Small Box</div>
+        <div class="pricing-price"><sup>$</sup>35<sub>/week</sub></div>
+        <div class="pricing-desc">Perfect for 1–2 people. Seasonal vegetables, herbs, and one fruit variety.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> 4–6 seasonal vegetables</li>
+          <li><span class="check">✓</span> Fresh herbs selection</li>
+          <li><span class="check">✓</span> Recipe card included</li>
+          <li><span class="cross">✗</span> Fruit variety</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="pricing-btn">Subscribe</a>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="popular-badge">Best Value</div>
+        <div class="pricing-tier">Family</div>
+        <div class="pricing-name">Family Box</div>
+        <div class="pricing-price"><sup>$</sup>65<sub>/week</sub></div>
+        <div class="pricing-desc">Ideal for families of 3–5. Full seasonal range with fruits, vegetables, and heritage variety.</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> 8–10 seasonal vegetables</li>
+          <li><span class="check">✓</span> Seasonal fruit selection</li>
+          <li><span class="check">✓</span> Fresh herbs & salad leaves</li>
+          <li><span class="check">✓</span> 1 heritage variety monthly</li>
+        </ul>
+        <a href="#" onclick="showPage('contact')" class="pricing-btn">Subscribe</a>
+      </div>
+    </div>
+
+    <div style="background:var(--sky);border-radius:var(--radius-lg);padding:48px;margin-top:72px;text-align:center">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--forest);margin-bottom:14px">Need a Custom Quote?</h3>
+      <p style="color:var(--text-mid);font-size:1.05rem;font-weight:300;max-width:500px;margin:0 auto 28px;line-height:1.8">Wholesale produce contracts, large-scale consultancy, and agri-tourism group bookings are all priced individually. Let's talk.</p>
+      <a href="#" onclick="showPage('contact')" class="btn-primary">Request a Custom Quote</a>
+    </div>
+  </section>
+
+</div><!-- end pricing page -->
+
+
+<!-- ============================================================
+     ABOUT PAGE
+============================================================ -->
+<div id="page-about" class="page">
+
+  <div class="page-hero" style="background-image:linear-gradient(160deg,rgba(26,51,37,0.9) 0%,rgba(45,90,61,0.8) 100%),url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1600&q=80')">
+    <div>
+      <div class="section-tag" style="color:var(--gold)">
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+        Our Heritage
+      </div>
+      <h1 class="page-hero-title">Growing with <em>Purpose</em></h1>
+      <p class="page-hero-sub">A family story rooted in the soil, branching towards a sustainable and abundant future.</p>
+    </div>
+  </div>
+
+  <section class="about-story">
+    <div class="about-story-grid">
+      <img class="about-story-img reveal-left" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&q=80" alt="Harvest Heritage farm story" loading="lazy">
+      <div class="reveal-right">
+        <div class="section-tag">Our Roots</div>
+        <h2 class="section-title">A Family Farm,<br><em>Three Generations Deep</em></h2>
+        <div style="margin-top:0">
+          <p style="font-size:1.05rem;color:var(--text-mid);line-height:1.9;font-weight:300;margin-bottom:16px">Harvest Heritage began in 1998 when Eleanor and Thomas Greenfield purchased a modest 40-acre plot with a simple vision: to grow real food in a world increasingly disconnected from it. What started as a passion project became a purpose-driven enterprise when their son Daniel joined the farm after completing his degree in Sustainable Agriculture.</p>
+          <p style="font-size:1.05rem;color:var(--text-mid);line-height:1.9;font-weight:300;margin-bottom:16px">Today, Harvest Heritage spans over 500 acres across three sites, employs over 60 permanent staff and seasonal workers, and supplies premium organic produce to hundreds of families and businesses across the region.</p>
+          <p style="font-size:1.05rem;color:var(--text-mid);line-height:1.9;font-weight:300">Our name reflects everything we believe in: honouring the heritage of traditional farming wisdom while harvesting a better future through innovation, sustainability, and community.</p>
+        </div>
+        <div style="display:flex;gap:36px;margin-top:36px;flex-wrap:wrap">
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--amber)">500+</div>
+            <div style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-mid)">Acres Farmed</div>
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--amber)">25+</div>
+            <div style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-mid)">Years of Heritage</div>
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--amber)">60+</div>
+            <div style="font-family:'Josefin Sans',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-mid)">Team Members</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-values">
+    <div style="text-align:center">
+      <div class="section-tag" style="justify-content:center;color:var(--gold)">
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+        What We Stand For
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+      </div>
+      <h2 class="section-title" style="text-align:center;color:var(--cream)">Our Mission & <em>Values</em></h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto 56px;color:rgba(247,241,227,0.72)">Everything we do is guided by a set of core beliefs that have shaped our farm from day one.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon">🌿</div>
+        <h3>Regenerative Stewardship</h3>
+        <p>We leave every acre in better health than we found it. Our mission is to actively restore soil vitality, biodiversity, and water cycles across all land we manage.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🤝</div>
+        <h3>Community First</h3>
+        <p>Farming is a community endeavour. We invest in local employment, rural education, and food access programs to ensure the benefits of the land are shared widely.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🔬</div>
+        <h3>Science-Informed Practice</h3>
+        <p>We honour traditional knowledge while embracing modern research. Our team continuously tests, learns, and adapts to improve outcomes for crops, soil, and ecosystem health.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🌾</div>
+        <h3>Heritage Preservation</h3>
+        <p>We maintain a living seed library of over 40 heirloom varieties, ensuring genetic diversity and agricultural heritage are protected for future generations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div style="text-align:center">
+      <div class="section-tag" style="justify-content:center">The People Behind the Farm</div>
+      <h2 class="section-title" style="text-align:center">Meet Our <em>Team</em></h2>
+      <p class="section-sub" style="text-align:center;margin:0 auto 56px">Passionate farmers, agronomists, and food thinkers dedicated to doing things the right way.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-img-wrap">
+          <img class="team-img" src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=400&q=80" alt="Daniel Greenfield" loading="lazy">
+        </div>
+        <h3>Daniel Greenfield</h3>
+        <span>Lead Farmer & Director</span>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-img-wrap">
+          <img class="team-img" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="Amara Osei" loading="lazy">
+        </div>
+        <h3>Amara Osei</h3>
+        <span>Head Agronomist</span>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-img-wrap">
+          <img class="team-img" src="https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=400&q=80" alt="Luis Vargas" loading="lazy">
+        </div>
+        <h3>Luis Vargas</h3>
+        <span>Irrigation Specialist</span>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-img-wrap">
+          <img class="team-img" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&q=80" alt="Sam Patel" loading="lazy">
+        </div>
+        <h3>Sam Patel</h3>
+        <span>Organic Certification Lead</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner" style="padding:80px 8%">
+    <div class="reveal">
+      <h2>Ready to <em>Partner</em> with Us?</h2>
+      <p>Whether you're a farmer, buyer, or food enthusiast — we'd love to hear from you.</p>
+      <a href="#" onclick="showPage('contact')" class="btn-primary">Get in Touch Today</a>
+    </div>
+  </section>
+
+</div><!-- end about page -->
+
+
+<!-- ============================================================
+     CONTACT PAGE
+============================================================ -->
+<div id="page-contact" class="page">
+
+  <div class="page-hero" style="background-image:linear-gradient(160deg,rgba(26,51,37,0.9) 0%,rgba(45,90,61,0.8) 100%),url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=1600&q=80')">
+    <div>
+      <div class="section-tag" style="color:var(--gold)">
+        <span style="background:var(--gold);width:28px;height:1px;display:inline-block"></span>
+        Connect With Us
+      </div>
+      <h1 class="page-hero-title">Let's <em>Grow</em> Together</h1>
+      <p class="page-hero-sub">We're always glad to hear from farms, food businesses, and curious people.</p>
+    </div>
+  </div>
+
+  <section class="contact-section">
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <h2 class="section-title">Get In <em>Touch</em></h2>
+        <p class="section-sub" style="margin-bottom:36px">Reach out via the form or any of the channels below — we aim to respond within one business day.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div>
+            <h4>Email Us</h4>
+            <p><a href="mailto:contactglanders@gmail.com" style="color:var(--moss)">contactglanders@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div>
+            <h4>Call Us</h4>
+            <p>+1 (800) 555-FARM (3276)</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div>
+            <h4>Visit the Farm</h4>
+            <p>Greenfield Lane, Heritage Valley<br>Agricultural District</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <div>
+            <h4>Farm Hours</h4>
+            <p>Monday – Friday: 7am – 6pm<br>Saturday: 8am – 2pm (Farm Shop)<br>Sunday: Closed</p>
+          </div>
+        </div>
+
+        <div class="map-embed" style="margin-top:36px">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.03605!2d-74.25987584765701!3d40.697767061454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1690000000000!5m2!1sen!2sus"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Farm Location Map">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="contact-form reveal-right">
+        <h3>Send Us a Message</h3>
+        <form onsubmit="handleForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Eleanor" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Greenfield" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+1 555 000 0000">
+          </div>
+          <div class="form-group">
+            <label>I'm Interested In</label>
+            <select>
+              <option>Crop Cultivation Service</option>
+              <option>Organic Produce Supply</option>
+              <option>Farm Consultancy</option>
+              <option>Agri-Tourism / Farm Visit</option>
+              <option>CSA Box Subscription</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Your Message</label>
+            <textarea placeholder="Tell us about your farm, project, or how we can help…"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message 🌱</button>
+        </form>
+        <div id="form-success" style="display:none;margin-top:20px;padding:18px 22px;background:var(--sky);border-radius:12px;border-left:4px solid var(--moss)">
+          <strong style="color:var(--forest)">Message sent!</strong>
+          <p style="color:var(--text-mid);font-size:0.95rem;margin-top:4px;font-weight:300">Thank you for reaching out. A member of our team will be in touch within one business day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end contact page -->
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="19" fill="#2d5a3d"/>
+          <path d="M19 6C19 6 8 13 8 22C8 28 13 32 19 32C25 32 30 28 30 22C30 13 19 6 19 6Z" fill="#5a8a6a"/>
+          <path d="M19 10C19 10 11 16 11 23C11 27 14.5 30 19 30C23.5 30 27 27 27 23C27 16 19 10 19 10Z" fill="#8fbc8f"/>
+          <line x1="19" y1="10" x2="19" y2="31" stroke="#d4a843" stroke-width="1.2"/>
+        </svg>
+        Harvest Heritage
+      </div>
+      <p>Rooted in tradition, grown for tomorrow. Premium sustainable farming, heritage crop cultivation, and farm-direct produce since 1998.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Facebook">🌐</a>
+        <a href="#" class="social-btn" title="Instagram">📸</a>
+        <a href="#" class="social-btn" title="Twitter">🐦</a>
+        <a href="#" class="social-btn" title="LinkedIn">💼</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" onclick="showPage('services')">Services</a></li>
+        <li><a href="#" onclick="showPage('pricing')">Pricing</a></li>
+        <li><a href="#" onclick="showPage('about')">About</a></li>
+        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('services')">Crop Cultivation</a></li>
+        <li><a href="#" onclick="showPage('services')">Produce Supply</a></li>
+        <li><a href="#" onclick="showPage('services')">Farm Consultancy</a></li>
+        <li><a href="#" onclick="showPage('services')">Agri-Tourism</a></li>
+        <li><a href="#" onclick="showPage('pricing')">CSA Boxes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:contactglanders@gmail.com">contactglanders@gmail.com</a></li>
+        <li><a href="tel:+18005553276">+1 (800) 555-FARM</a></li>
+        <li><a href="#">Heritage Valley Farm</a></li>
+        <li><a href="#">Mon–Fri: 7am – 6pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Harvest Heritage. All Rights Reserved.</span>
+    <span>Sustainable Farming · Heritage Crops · Organic Produce</span>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/18005553276" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp" rel="noopener">
+  <svg viewBox="0 0 32 32" width="26" height="26" fill="white"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.612 1.817 6.515L4 29l7.674-1.792A11.94 11.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.234 16.46c-.26.728-1.522 1.392-2.083 1.44-.561.048-1.082.25-3.643-.762-3.107-1.236-5.07-4.38-5.223-4.583-.153-.203-1.249-1.662-1.249-3.17s.79-2.25 1.07-2.556c.28-.306.612-.383.816-.383.204 0 .408.002.587.01.188.008.44-.071.688.525.26.626.88 2.162.957 2.319.077.157.128.34.025.545-.102.204-.153.33-.306.51-.153.18-.32.402-.459.54-.153.153-.312.318-.134.624.178.306.79 1.304 1.695 2.112 1.163 1.037 2.143 1.358 2.449 1.511.306.153.484.128.662-.077.178-.204.765-.893 1.07-1.198.178-.178.357-.23.612-.128.255.102 1.607.758 1.882.896.255.128.434.187.497.306.064.118.064.676-.196 1.322z"/></svg>
+</a>
+
+<script>
+// ============================================================
+// PAGE SYSTEM
+// ============================================================
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(observeReveal, 100);
+}
+
+// ============================================================
+// LOADER
+// ============================================================
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    observeReveal();
+    animateCounters();
+  }, 1400);
+});
+
+// ============================================================
+// NAVBAR SCROLL
+// ============================================================
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  const backTop = document.getElementById('backTop');
+  if (window.scrollY > 60) { nav.classList.add('scrolled'); }
+  else { nav.classList.remove('scrolled'); }
+  if (window.scrollY > 300) { backTop.classList.add('visible'); }
+  else { backTop.classList.remove('visible'); }
+});
+
+// ============================================================
+// MOBILE NAV
+// ============================================================
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// ============================================================
+// FAQ ACCORDION
+// ============================================================
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const allOpen = document.querySelectorAll('.faq-item.open');
+  allOpen.forEach(i => { if (i !== item) i.classList.remove('open'); });
+  item.classList.toggle('open');
+}
+
+// ============================================================
+// SCROLL REVEAL
+// ============================================================
+function observeReveal() {
+  const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => {
+    if (!el.classList.contains('visible')) io.observe(el);
+  });
+}
+
+// ============================================================
+// COUNTER ANIMATION
+// ============================================================
+function animateCounters() {
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    let current = 0;
+    const step = Math.ceil(target / 60);
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = current + (target >= 100 ? '+' : '+');
+    }, 22);
+  });
+}
+
+// ============================================================
+// CONTACT FORM
+// ============================================================
+function handleForm(e) {
+  e.preventDefault();
+  document.getElementById('form-success').style.display = 'block';
+  e.target.reset();
+  setTimeout(() => {
+    document.getElementById('form-success').style.display = 'none';
+  }, 6000);
+}
+
+// Init
+observeReveal();
+</script>
+</body>
+</html>
